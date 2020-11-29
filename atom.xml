@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://Shangxiaojin.github.io</id>
+    <id>https://shangxiaojin-github-io.vercel.app</id>
     <title>望花寻音</title>
-    <updated>2020-11-29T17:13:41.239Z</updated>
+    <updated>2020-11-29T17:16:28.772Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://Shangxiaojin.github.io"/>
-    <link rel="self" href="https://Shangxiaojin.github.io/atom.xml"/>
+    <link rel="alternate" href="https://shangxiaojin-github-io.vercel.app"/>
+    <link rel="self" href="https://shangxiaojin-github-io.vercel.app/atom.xml"/>
     <subtitle>温故而知新</subtitle>
-    <logo>https://Shangxiaojin.github.io/images/avatar.png</logo>
-    <icon>https://Shangxiaojin.github.io/favicon.ico</icon>
+    <logo>https://shangxiaojin-github-io.vercel.app/images/avatar.png</logo>
+    <icon>https://shangxiaojin-github-io.vercel.app/favicon.ico</icon>
     <rights>All rights reserved 2020, 望花寻音</rights>
     <entry>
         <title type="html"><![CDATA[IDEA插件推荐：EasyCode]]></title>
-        <id>https://Shangxiaojin.github.io/post/idea-cha-jian-tui-jian-easycode/</id>
-        <link href="https://Shangxiaojin.github.io/post/idea-cha-jian-tui-jian-easycode/">
+        <id>https://shangxiaojin-github-io.vercel.app/post/idea-cha-jian-tui-jian-easycode/</id>
+        <link href="https://shangxiaojin-github-io.vercel.app/post/idea-cha-jian-tui-jian-easycode/">
         </link>
         <updated>2020-11-29T12:18:27.000Z</updated>
         <summary type="html"><![CDATA[<p>Easycode是idea的一个插件，可以直接对数据的表生成entity,controller,service,dao,mapper,无需任何编码，简单而强大。</p>
@@ -23,9 +23,22 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[杂谈]]></title>
-        <id>https://Shangxiaojin.github.io/post/za-tan/</id>
-        <link href="https://Shangxiaojin.github.io/post/za-tan/">
+        <id>https://shangxiaojin-github-io.vercel.app/post/za-tan/</id>
+        <link href="https://shangxiaojin-github-io.vercel.app/post/za-tan/">
         </link>
         <updated>2020-11-27T19:26:33.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Hello Gridea]]></title>
+        <id>https://shangxiaojin-github-io.vercel.app/post/hello-gridea/</id>
+        <link href="https://shangxiaojin-github-io.vercel.app/post/hello-gridea/">
+        </link>
+        <updated>2018-12-11T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+]]></content>
     </entry>
 </feed>
