@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://shangxiaojin-github-io.vercel.app</id>
     <title>望花寻音</title>
-    <updated>2020-12-16T15:51:55.997Z</updated>
+    <updated>2020-12-18T16:25:52.404Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://shangxiaojin-github-io.vercel.app"/>
     <link rel="self" href="https://shangxiaojin-github-io.vercel.app/atom.xml"/>
@@ -10,6 +10,17 @@
     <logo>https://shangxiaojin-github-io.vercel.app/images/avatar.png</logo>
     <icon>https://shangxiaojin-github-io.vercel.app/favicon.ico</icon>
     <rights>All rights reserved 2020, 望花寻音</rights>
+    <entry>
+        <title type="html"><![CDATA[如何写出让人无法维护的代码]]></title>
+        <id>https://shangxiaojin-github-io.vercel.app/post/ru-he-xie-chu-rang-ren-wu-fa-wei-hu-de-dai-ma/</id>
+        <link href="https://shangxiaojin-github-io.vercel.app/post/ru-he-xie-chu-rang-ren-wu-fa-wei-hu-de-dai-ma/">
+        </link>
+        <updated>2020-12-18T16:01:55.000Z</updated>
+        <summary type="html"><![CDATA[<p>本文就是教你怎么写出让同事无法维护的代码🎃</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>本文就是教你怎么写出让同事无法维护的代码🎃</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[日常]]></title>
         <id>https://shangxiaojin-github-io.vercel.app/post/ri-chang/</id>
