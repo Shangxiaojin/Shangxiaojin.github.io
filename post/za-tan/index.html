@@ -9,7 +9,7 @@
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
 <title>杂谈 | 望花寻音</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1609522990103">
+<link rel="shortcut icon" href="/favicon.ico?v=1610264863870">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -201,7 +201,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">5</span>
+        <span class="site-item-stat-count">6</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1411,6 +1411,81 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://shangxiaojin-github-io.vercel.app/post/spring-boot-redis-chu-li-session-gong-xiang/"" data-c="
+          &lt;p&gt;Web 开发中，通过 Session 在服务端记录用户状态是很常见的操作。对于 Web 开发中 Session、Cookie 等概念请参考《Session 机制详解》。但是 Session 的机制对于单机应用是没问题的，但是对于集群环境，由于在将请求分配到另一台服务器时，新的服务器无法通过浏览器传入的 Cookie 值取到 Session，所以导致所有基于 Session 的操作都会失败，如：登录状态。&lt;br&gt;
+通过搭建一个非常简易的集群环境，来演示 Session 机制在集群环境中存在的问题，并通过 Redis 进行 Session 共享来解决该问题。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;&lt;strong&gt;一、问题再现&lt;/strong&gt;&lt;br&gt;
+1、测试环境&lt;br&gt;
+（1）App Server&lt;br&gt;
+使用 Spring Boot 2 写一个简单的 Web 应用，提供两个链接：&lt;br&gt;
+&lt;img src=&#34;https://shangxiaojin-github-io.vercel.app/post-images/1610264420447.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Controller 部分代码如下：&lt;/p&gt;
+&lt;p&gt;@RestController&lt;br&gt;
+public class TestController {&lt;br&gt;
+@GetMapping(&amp;quot;/set-session&amp;quot;)&lt;br&gt;
+public Object writeSession(String sessionVal, HttpSession httpSession) {&lt;br&gt;
+System.out.println(&amp;quot;Param &#39;sessionVal&#39; = &amp;quot; + sessionVal);&lt;br&gt;
+httpSession.setAttribute(&amp;quot;sessionVal&amp;quot;, sessionVal);&lt;br&gt;
+return sessionVal;&lt;br&gt;
+}&lt;br&gt;
+@GetMapping(&amp;quot;/get-session&amp;quot;)&lt;br&gt;
+public Object readSession(HttpSession httpSession) {&lt;br&gt;
+Object obj = httpSession.getAttribute(&amp;quot;sessionVal&amp;quot;);&lt;br&gt;
+System.out.println(&amp;quot;&#39;sessionVal&#39; in Session = &amp;quot; + obj);&lt;br&gt;
+return obj;&lt;br&gt;
+}&lt;br&gt;
+}&lt;br&gt;
+单机测试通过。&lt;/p&gt;
+&lt;p&gt;（2）通过 Nginx 做负载均衡&lt;br&gt;
+分别在 9001 和 9002 两个端口启动 App Server，然后通过 Nginx 配置负载均衡，配置如下：&lt;br&gt;
+http {&lt;br&gt;
+upstream app_server {&lt;br&gt;
+server 127.0.0.1:9001;&lt;br&gt;
+server 127.0.0.1:9002;&lt;br&gt;
+}&lt;br&gt;
+server {&lt;br&gt;
+listen 9000;&lt;br&gt;
+location / {&lt;br&gt;
+proxy_pass http://app_server;&lt;br&gt;
+}&lt;br&gt;
+}&lt;br&gt;
+}&lt;br&gt;
+测试失败。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;二、原因分析&lt;/strong&gt;&lt;br&gt;
+主要是因为原来 A 服务器将其 Session 的标识 Cookie_for_Session_A 放入浏览器 Cookie，当下一次请求被分配到 B 服务器，B 服务器无法通过  Cookie_for_Session_A 获取到对应的 Session，导致失败。&lt;/p&gt;
+&lt;p&gt;解决的思路，主要是引入三方服务器，将 Session 保存到三方服务器，A、B 服务器共享三方服务器中的 Session 数据。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;三、解决方案&lt;/strong&gt;&lt;br&gt;
+引入 Redis 作为三方服务器存储 Session 数据。&lt;br&gt;
+1、引入 Redis 相关库&lt;br&gt;
+dependencies {&lt;br&gt;
+implementation(&#39;org.springframework.boot:spring-boot-starter-web&#39;)&lt;br&gt;
+implementation(&#39;org.springframework.boot:spring-boot-starter-data-redis&#39;)&lt;/p&gt;
+&lt;p&gt;// https://mvnrepository.com/artifact/org.springframework.session/spring-session-data-redis&lt;br&gt;
+compile group: &#39;org.springframework.session&#39;, name: &#39;spring-session-data-redis&#39;, version: &#39;2.1.2.RELEASE&#39;&lt;br&gt;
+}&lt;/p&gt;
+&lt;p&gt;2、配置 Redis 连接&lt;br&gt;
+application.yml，这里为了演示清晰，只做了最简配置，正式使用请调整相关参数&lt;br&gt;
+spring:&lt;br&gt;
+redis:&lt;br&gt;
+host: 127.0.0.1&lt;br&gt;
+port: 6379&lt;/p&gt;
+&lt;p&gt;3、开启配置&lt;br&gt;
+创建一个配置类 SessionConfig，类名随意。&lt;br&gt;
+关键是两个注解：&lt;br&gt;
+@Configuration&lt;br&gt;
+@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 86400*30)&lt;br&gt;
+public class SessionConfig {&lt;br&gt;
+}&lt;/p&gt;
+&lt;p&gt;4、打包、运行测试&lt;br&gt;
+执行 Gradle 的 bootJar 任务，然后按照前面的方式，分别在 9001 和 9002 端口运行 jar 包：&lt;br&gt;
+java -jar redis-session.jar&lt;br&gt;
+java -jar redis-session.jar&lt;br&gt;
+测试通过。&lt;/p&gt;
+">Spring Boot + Redis 处理 Session 共享</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://shangxiaojin-github-io.vercel.app/post/xin-nian-kuai-le/"" data-c="
